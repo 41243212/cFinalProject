@@ -5,6 +5,8 @@
 #include <time.h>
 #include "game.h"
 #include "file.h"
+#include "wordle.h"
+
 
 int main() {
 	srand((unsigned)time(NULL));
@@ -21,7 +23,7 @@ int main() {
 	// Reset the file pointer to the beginning of the file
 	rewind(file);
 	// Get the word at the random line number
-	char line[256];
+	char line[MAX_WORD_LENGTH + 1];
 	while (r >= 0) {
 		fgets(line, sizeof(line), file);
 		r--;
@@ -31,6 +33,8 @@ int main() {
 	line[strcspn(line, "\n")] = 0;
 
 	GameState result = startGame(line);
+
+	printf("%s\n", result.word);
 
     fclose(file);
 }
