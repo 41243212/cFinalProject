@@ -4,7 +4,7 @@
 #include "game.h"
 #include "wordle.h"
 
-GameState startGame(char word[MAX_WORD_LENGTH + 1]) {
+GameState startGame(char word[]) {
 	printf("%s\n", word);
 	GameState state = { word };
 	char guess[MAX_WORD_LENGTH + 1];
