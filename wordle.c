@@ -16,7 +16,7 @@ int main() {
 	FILE* file = fopen(filename, "r");
 
 	// History file
-	FILE* history_file = fopen("history.txt", "a");
+	static const char history_filename[] = "history.txt";
 
 	char menu_option = '\0';
 
@@ -38,8 +38,7 @@ int main() {
 				// Generate a random number between 1 and the number of lines in the file
 				int r = rand() % lc;
 				//printf("r = %d\n", r);
-				// Reset the file pointer to the beginning of the file
-				rewind(file);
+
 				// Get the word at the random line number
 				char line[MAX_WORD_LENGTH + 1];
 				while (r >= 0) {
@@ -57,20 +56,28 @@ int main() {
 				printf("Please enter your name:");
 				rewind(stdin);
 				scanf("%s", &player_name);
-				fprintf(history_file, "%s %s %d ", player_name, result.word, result.guessCount);
+				rewind(stdin);
+				FILE* history_file = fopen(history_filename, "a");
+				fprintf(history_file, "%s %s %d %d", player_name, result.word, result.guessCount, result.success);
 				for (int i = 0; i < 6; i++) {
 					for (int j = 0; j < 5; j++) {
-						fprintf(history_file, "%d ", result.guessResult[i][j]);
+						fprintf(history_file, " %d", result.guessResult[i][j]);
 					}
 				}
-				fprintf(history_file, "%d\n", result.success);
+				fprintf(history_file, "\n");
+				fclose(history_file);
+				rewind(file);
 
 				break;
 			case 'b':
-				showHistory();
+				history_file = fopen(history_filename, "r");
+				showHistory(history_file);
+				fclose(history_file);
 				break;
 			case 'c':
-				clearHistory();
+				history_file = fopen(history_filename, "w");
+				clearHistory(history_file);
+				fclose(history_file);
 				break;
 			case 'q':
 				printf("Bye\n");
@@ -82,7 +89,7 @@ int main() {
 	} while (menu_option != 'q');
 
     fclose(file);
-	fclose(history_file);
+
 
 	return 0;
 }

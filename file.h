@@ -3,8 +3,8 @@
 #include <stdio.h>
 
 int lineCount(FILE*);
-void showHistory();
-void clearHistory();
+void showHistory(FILE*);
+void clearHistory(FILE*);
 
 
 #endif
