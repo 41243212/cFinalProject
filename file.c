@@ -13,3 +13,10 @@ int lineCount(FILE* file) {
 	} while (ch != EOF);
 	return count;
 }
+
+void showHistory() {
+	printf("todo");
+}
+void clearHistory() {
+	printf("todo");
+}

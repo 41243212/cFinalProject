@@ -5,9 +5,9 @@
 #include "wordle.h"
 
 GameState startGame(char word[]) {
-	printf("%s\n", word);
 	GameState state = { word };
 	char guess[MAX_WORD_LENGTH + 1];
+	printf("Input a five letter word:\n");
 	while (state.guessCount < 6) {
 		// guess the word
 		scanf("%s", &guess);
